@@ -1,89 +1,78 @@
 //Alice Wang 
 //Feb 17
 
+int mode = 0;
+
 void setup() {
   size(600, 800);
 
+
+  //testMatchOdds();
+
   numOfFrames = 150;
   gif = new PImage[numOfFrames];
-  
   int i = 0;
   while (i < gif.length) {
     gif[i] = loadImage("2mue-" + (i+1) + " (dragged).tiff");
     gif[i].resize(width, height);
     i++;
   
-  textSize(50);
+  customFont = createFont("Monocraft-Light-Italic.ttf", 50);  
+  gameOverFont = createFont("Monocraft-Light.ttf", 40); 
   textAlign(CENTER, CENTER);
   }
   
-  restart();
+  nextRandomCombo();
+  
 }
 
 
 void draw() {
+  
+  if (mode == 0) {
+    introPage();
+  } else if (mode == 1) {
+    gamePage();
+  } else if (mode == 2) {
+    showGameOverScreen();
+  }
+}
+ 
+ 
+void gamePage() {
   image(gif[f], 0, 0);
-  f = f + 1;
-  if (f == gif.length) f = 0;
+  f = (f + 1) % gif.length;
 
+  textFont(customFont);
   fill(colours[randomColour]); 
   text(words[randomWord], width / 2, height / 2);
-  
+
   if (millis() - lastWordChangeTime >= interval) {
-  endGame();
+    endGame();
   }
-  
-  if (gameOver) 
-  showGameOverScreen();
-  return;
 }
 
 
 void mousePressed() {
+  if (mode == 0) {
+    mode = 1; // Start game
+    nextRandomCombo();
+    return;
+  }
+  
   if (gameOver) {
     resetGame();
     return;
   }
+
   
   boolean isMatch = (randomWord == randomColour);
   boolean clickedLeft = mouseX < width / 2;
   
   if ((clickedLeft && isMatch) || (!clickedLeft && !isMatch)) {
     score++;
-    restart();
+    nextRandomCombo();
   } else {
     endGame();
   }
-}
-
-
-void restart() {
-  randomWord = int(random(0, words.length));
-  randomColour = int(random(0, colours.length));
-  lastWordChangeTime = millis();
-}
-
-
-void endGame() {
-  gameOver = true;
-  if (score > highScore) {
-    highScore = score;
-  }
-}
-
-
-void resetGame() {
-  score = 0;
-  gameOver = false;
-  restart();
-}
-
-void showGameOverScreen() {
-  background(0);
-  fill(255);
-  
-  text("Game Over!", width / 2, height / 4);
-  text("Score: " + score, width / 2, height / 2);
-  text("High Score: " + highScore, width / 2, height / 1.75);
-  text("Click to Restart", width / 2, height - 200);
 }
