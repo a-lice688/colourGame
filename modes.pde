@@ -1,7 +1,7 @@
 //mode 0
 
 void introPage() {
-  
+   
   background(0);
   image(gif[f], 0, 0);
   f = (f + 1) % gif.length;
@@ -18,6 +18,7 @@ void introPage() {
 
 //mode 1
 void gamePage() {
+    
   image(gif[f], 0, 0);
   f = (f + 1) % gif.length;
 
@@ -30,11 +31,6 @@ void gamePage() {
   textFont(customFont);
   fill(colours[randomColour]);
   text(words[randomWord], wordX, wordY);
-  
-  if (wordY >= height - 10) {
-    wordY = height;
-    wordSpeed *= -bounceFactor;
-  }
  
   if (millis() - lastWordChangeTime >= interval) {
     endGameScore();
@@ -44,6 +40,7 @@ void gamePage() {
 
 //mode 2
 void gameOverPage() {
+    
   background(0);
   fill(255);
 

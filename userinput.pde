@@ -17,7 +17,10 @@ void mousePressed() {
   if ((clickedLeft && isMatch) || (!clickedLeft && !isMatch)) {
     score++;
     nextRandomCombo();
+    success.play();
   } else {
     endGameScore();
+    failure.play();
   }
+ 
 }
