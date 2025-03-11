@@ -1,5 +1,4 @@
 //mode 0
-
 void introPage() {
    
   background(0);
@@ -11,7 +10,8 @@ void introPage() {
   textSize(70);
   text("Color Game", width / 2, height / 3);
   textSize(30);
-  text("Click to Start!", width / 2, height / 2);
+  
+  drawButton(width / 2, height / 2, "Click to Start!", gameOverFont, color(255), color(247, 214, 25));
     
 }
 
@@ -33,6 +33,7 @@ void gamePage() {
   text(words[randomWord], wordX, wordY);
  
   if (millis() - lastWordChangeTime >= interval) {
+    failure.play();
     endGameScore();
   }
 }
@@ -40,7 +41,6 @@ void gamePage() {
 
 //mode 2
 void gameOverPage() {
-    
   background(0);
   fill(255);
 
@@ -48,5 +48,6 @@ void gameOverPage() {
   text("Game Over!", width / 2, height / 4);
   text("Score: " + score, width / 2, height / 2);
   text("High Score: " + highScore, width / 2, height / 1.75);
-  text("Click to Restart", width / 2, height - 200);
+
+  drawButton(width / 2, height - 200, "Click to Restart", gameOverFont, color(255), color(140, 140, 132));
 }

@@ -25,6 +25,6 @@ float wordSpeed = 10;
 // Game Mode
 int mode = 0; // 0 = Intro, 1 = Game, 2 = Game Over
 
-//sound variables
+// Sound variables
 Minim minim;
 AudioPlayer theme, success, failure;

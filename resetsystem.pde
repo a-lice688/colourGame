@@ -15,6 +15,8 @@ void nextRandomCombo() {
   }
 
   lastWordChangeTime = millis();
+  
+  failure.rewind();
 }
 
 //Score systems

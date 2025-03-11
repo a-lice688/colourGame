@@ -35,9 +35,10 @@ void draw() {
 
    // framework
   if (mode == 0) {
-    
+
     failure.pause();
     theme.play();
+    
     introPage();
     
   } else if (mode == 1) {
@@ -45,10 +46,23 @@ void draw() {
     gamePage();
     
   } else if (mode == 2) {
-    
     theme.pause();
-    failure.play();
     gameOverPage();
-    
   }
+}
+
+
+void drawButton(float x, float y, String label, PFont font, color colour, color tactileColour) {
+  textFont(font);
+  textAlign(CENTER, CENTER);
+  textSize(40);
+  
+  boolean isTactile = mouseX > x - textWidth(label) / 2 && mouseX < x + textWidth(label) / 2 && mouseY > y - 30 && mouseY < y + 30;
+
+  fill(isTactile ? tactileColour : colour); //new trick!
+  text(label, x, y);
+}
+
+  boolean buttonClicked(float x, float y, String label) {
+  return mousePressed && mouseX > x - textWidth(label) / 2 && mouseX < x + textWidth(label) / 2 && mouseY > y - 30 && mouseY < y + 30;
 }
